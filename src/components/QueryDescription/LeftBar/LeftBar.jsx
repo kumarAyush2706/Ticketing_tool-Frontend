@@ -1,7 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./LeftBar.css";
 
 const LeftBar = () => {
+    const [user, setUser] = useState(null);
+    useEffect(()=>{
+      const getUser = async () => {
+        try {
+          const URL = "http://localhost:3000/api/me";
+        const options = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            },
+            credentials: "include",
+            
+        }
+        const response = await fetch(URL, options);
+              const data = await response.json();
+              if (data.success) {
+                setUser(data.user); // ✅ User comes from cookie
+              } else {
+                navigate("/login");
+              }
+        } catch (error) {  
+        }
+         
+      }
+      getUser()
+    },[])
   return (
     <div className="left-bar">
         <div className="left">
@@ -22,7 +48,7 @@ const LeftBar = () => {
             </div>
             <div className="assignee left-data">
                 <h4>Assignee</h4>
-                <p>John Doe</p>
+                <p>{user?.name}</p>
             </div>
             <div className="follower left-data">
                 <h4>Followers</h4>

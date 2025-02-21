@@ -28,6 +28,7 @@ const QueryDetails = () => {
         }
         getQuery();
     },[])
+
   return (
     <>
     <Header/>

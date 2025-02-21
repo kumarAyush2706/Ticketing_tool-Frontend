@@ -8,6 +8,7 @@ import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
+import {  useNavigate } from 'react-router-dom'
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -32,6 +33,7 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
   console.log("for", formdata);
 
   const handleChange = (e) => {
@@ -52,13 +54,18 @@ export default function Login() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formdata),
+        credentials: "include"
       });
       const result = await response.json();
       console.log("Response:", result);
+      if (result.success) {
+        alert("User Login Successfully");
       setformdata({
         email: "",
         password: "",
       });
+      navigate('/details');
+    }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -80,7 +87,7 @@ export default function Login() {
           variant="h5"
           sx={{ textAlign: "center", fontSize: "clamp(1.5rem, 5vw, 2rem)" }}
         >
-          Sign in
+          Login
         </Typography>
         <Box
           onSubmit={handleSubmit}
@@ -116,7 +123,7 @@ export default function Login() {
           </FormControl>
 
           <Button type="submit" fullWidth variant="contained">
-            Sign Up
+            Login
           </Button>
 
           <Typography sx={{ textAlign: "center" }}>

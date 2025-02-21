@@ -13,12 +13,14 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Query />}></Route>
+      <Route path="/signup" element={<SignInCard />}></Route>
+      <Route path="/login" element={<Login />}></Route>
+      <Route path="/" element={<Login />}></Route>
+        <Route path="/query" element={<Query />}></Route>
         <Route path="/verify" element={<VerifyToken />}></Route>
         <Route path="/details" element={<QueryDetails />}></Route>
         <Route path="/description" element={<QueryDescription />}></Route>
-        <Route path="/signup" element={<SignInCard />}></Route>
-        <Route path="/login" element={<Login />}></Route>
+
       </Routes>
     </>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaUser } from "react-icons/fa6";
 import { FaPen } from "react-icons/fa";
 import "./RightBar.css";
@@ -10,20 +10,51 @@ import { CiFilter } from "react-icons/ci";
 import { AiOutlineHistory } from "react-icons/ai";
 
 const RightBar = () => {
+   const [query, setQuery] = useState([]);
+      useEffect(()=>{
+          const getQuery = async () => {
+              try {
+                  const URL ="http://localhost:3000/api/getQuery";
+                  const options ={
+                      method: 'GET',
+                      headers: {
+                          'Content-Type': 'application/json',
+                          },
+                      Credential:"include"
+                  }
+                  const response = await fetch(URL, options);
+                  const data = await response.json();
+                  console.log(data);
+                  if(data.success){
+                      setQuery(data.data);
+                  }
+              } catch (error) {
+                  
+              }
+  
+          }
+          getQuery();
+      },[])
   return (
+ 
     <div className="right-bar">
+   {query.map((item, index) => {
+      return (
+
+    <>
+      
       <div className="right-profile">
         <div className=" user-heading">
           <div className="icon">
             <FaUser fontSize={20} />
           </div>
-          <h3>Ayush Kumar</h3>
+          <h3>{item.name}</h3>
           <FaPen fontSize={20} />
         </div>
         <div className="user-information">
           <div className="user-email information">
             <HiOutlineMail />
-            <p>ayush.terchisors.3@gmail.com</p>
+            <p>{item.email}</p>
           </div>
           <div className="user-phone information">
             <FaPhone />
@@ -57,8 +88,14 @@ const RightBar = () => {
           <option value="progress">InProgress</option>
           <option value="closed">closed</option>
         </select>
+        
       </div>
+      </>
+    );
+  })}
+      
     </div>
+  
   );
 };
 
