@@ -19,7 +19,9 @@ const QueryDescription = () => {
     return <h1>No Complaint</h1>;
   }
 
-  const { name, description, createdAt } = state.queryData;
+  const { name, description,phone, createdAt,status } = state.queryData;
+
+  
 
   return (
     <>

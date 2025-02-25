@@ -74,6 +74,7 @@ import {
 } from "material-react-table";
 import { useNavigate } from "react-router-dom";
 import Header from "../Header/Header";
+import "./QueryDetails.css"
 
 const QueryDetails = () => {
   const [query, setQuery] = useState([]);
@@ -109,7 +110,6 @@ const QueryDetails = () => {
   const handleClick = (queryData) => {
     navigate("/description", { state: { queryData } });
   };
-
   const columns = [
     {
       accessorKey: "name",
@@ -154,7 +154,7 @@ const QueryDetails = () => {
       size: 5,
       accessorFn: (row) => (
         <button className="edit-button" onClick={() => handleClick(row)}>
-          reply
+          Reply
         </button>
       ),
     },
@@ -184,7 +184,7 @@ const QueryDetails = () => {
   return (
     <div>
       <Header />
-      <div>
+      <div style={{marginTop:20}}>
         <MaterialReactTable table={table} />
       </div>
     </div>

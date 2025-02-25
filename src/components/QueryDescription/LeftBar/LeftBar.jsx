@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import "./LeftBar.css";
+import { useLocation } from "react-router-dom";
 
 const LeftBar = () => {
     const [user, setUser] = useState(null);
+    const { state } = useLocation();
+    if (!state?.queryData) {
+      return <h1>No Complaint</h1>;
+    }
+    const { name, description, createdAt,status } = state.queryData;
     useEffect(()=>{
       const getUser = async () => {
         try {
@@ -43,7 +49,7 @@ const LeftBar = () => {
             <hr />
             <div className="requester left-data">
                 <h4>Requester</h4>
-                <p>Ayush Kumar</p>
+                <p>{name}</p>
 
             </div>
             <div className="assignee left-data">
@@ -56,7 +62,7 @@ const LeftBar = () => {
             </div>
             <div className="status left-data">
                 <h4>Status</h4>
-                <p>Open</p>
+                <p>{status}</p>
 
             </div>
         </div>
