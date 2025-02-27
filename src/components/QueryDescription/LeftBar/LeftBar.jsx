@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./LeftBar.css";
 import { useLocation } from "react-router-dom";
 
@@ -17,33 +18,32 @@ const LeftBar = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            },
-            credentials: "include",
-            
-        }
+          },
+          credentials: "include",
+        };
         const response = await fetch(URL, options);
-              const data = await response.json();
-              if (data.success) {
-                setUser(data.user); // ✅ User comes from cookie
-              } else {
-                navigate("/login");
-              }
-        } catch (error) {  
+        const data = await response.json();
+        if (data.success) {
+          setUser(data.user); // ✅ User comes from cookie
+        } else {
+          navigate("/login");
         }
-         
+      } catch (error) {
+        console.error(error);
       }
-      getUser()
-    },[])
+    };
+    getUser();
+  }, []);
   return (
     <div className="left-bar">
-        <div className="left">
+      <div className="left">
         <div className="left-title">
-            <h3>Ticket Details</h3>
-        </div><hr />
+          <h3>Ticket Details</h3>
+        </div>
+        <hr />
         <div className="company-name left-data">
-            
-           <h4>Brand</h4>
-            <p>Togile</p>
+          <h4>Brand</h4>
+          <p>Togile</p>
         </div>
         <div className="details">
             <hr />
@@ -68,29 +68,25 @@ const LeftBar = () => {
         </div>
         <hr />
         <div className="form-details ">
-            <form >
-                <label >Tags</label>
-                <input type="text" name="" id="" />
-                <label >Type</label>
-                <select name="" id="">
-                    <option value="">Question</option>
-                    <option value="">Select</option>
-
-                </select>
-                <label >Priority</label>
-                <select name="" id="">
-                    <option value="">Low</option>
-                    <option value="">Medium</option>
-                    <option value="">High</option>
-                </select>
-
-
-            </form>
+          <form>
+            <label>Tags</label>
+            <input type="text" name="" id="" />
+            <label>Type</label>
+            <select name="" id="">
+              <option value="">Question</option>
+              <option value="">Select</option>
+            </select>
+            <label>Priority</label>
+            <select name="" id="">
+              <option value="">Low</option>
+              <option value="">Medium</option>
+              <option value="">High</option>
+            </select>
+          </form>
         </div>
-        </div>
-      
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default LeftBar
+export default LeftBar;

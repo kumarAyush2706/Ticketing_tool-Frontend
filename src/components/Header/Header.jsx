@@ -21,7 +21,7 @@ const Header = () => {
         const response = await fetch(URL, options);
         const data = await response.json();
         if (data.success) {
-          setUser(data.user); // ✅ User comes from cookie
+          setUser(data.user);
         } else {
           navigate("/login");
         }
@@ -48,7 +48,9 @@ const Header = () => {
         alert("User logged out");
         navigate("/login");
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div>
