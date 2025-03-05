@@ -117,16 +117,12 @@ const RightBar = () => {
         <button onClick={handleSubmit}>Submit </button>
         <select value={status} onChange={handleStatusChange}>
         <option value="New">New</option>
-          <option value="open">Open</option>
-          <option value="progress">InProgress</option>
+          <option value="Open">Open</option>
+          <option value="Progress">Progress</option>
           <option value="closed">closed</option>
         </select>
         
       </div>
-      {/* </>
-    );
-  })}
-       */}
     </div>
   
   );

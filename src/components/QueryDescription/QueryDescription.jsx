@@ -203,9 +203,9 @@ const QueryDescription = () => {
 
   const { state } = useLocation();
   const queryId = state?.queryData?._id;
-  const name = state?.queryData?.name;
-  const description = state?.queryData?.description;
-  const createdAt = state?.queryData?.createdAt;
+  // const name = state?.queryData?.name;
+  // const description = state?.queryData?.description;
+  // const createdAt = state?.queryData?.createdAt;
 
   // Fetch logged-in admin details
   useEffect(() => {
@@ -245,7 +245,7 @@ const QueryDescription = () => {
     fetchReplies();
   }, [queryId]);
 
-  //Fetch user replies
+  // Fetch user replies
   useEffect(() => {
     if (!queryId) return;
 
@@ -295,7 +295,7 @@ const QueryDescription = () => {
     return <h1>No Complaint</h1>;
   }
 
-  const { name, description, phone, createdAt, status } = state.queryData;
+  const { name, description, createdAt, status } = state.queryData;
 
   return (
     <>
@@ -322,12 +322,13 @@ const QueryDescription = () => {
                   <FaUser fontSize={20} />
                 </div>
                 <h3>{name}</h3>
-                <p>
+                
+              </div>
+              <p>
                   {createdAt
                     ? new Date(createdAt).toLocaleString()
                     : "Date not available"}
                 </p>
-              </div>
             </div>
             <div className="chat-description">
               {description}
@@ -343,15 +344,20 @@ const QueryDescription = () => {
                   {messages.map((msg, index) => (
                     <div key={index} className="message admin">
                       <div className="message-header">
+                        <div className="reply-icon">
                         <FaUserTie fontSize={20} className="admin-icon" />
-                        <strong>{msg.adminName || "Admin"}:</strong>
-                      </div>
-                      <span dangerouslySetInnerHTML={{ __html: msg.message }} />
-                      <p className="timestamp">
+                        <strong >{msg.adminName || name}:</strong>
+                        </div>
+                        <p className="timestamp">
                         {msg.createdAt
                           ? new Date(msg.createdAt).toLocaleString()
                           : "Invalid date"}
                       </p>
+                      </div>
+                      {/* <span className="reply-span">
+                        {msg.message}
+                        </span> */}
+                      <div className="reply-span" dangerouslySetInnerHTML={{ __html: msg.message }} />
                     </div>
                   ))}
                   {/* {userReplies.map((msg, index) => (
