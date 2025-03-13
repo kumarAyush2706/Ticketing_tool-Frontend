@@ -88,13 +88,15 @@
   justify-content: space-between;
 }
 .reply-chat {
-  position: absolute;
+  position: relative;
   padding: 0 40px;
   margin: 0 40px;
   bottom: 0;
   border-radius: 4px;
   width: 85%;
+  height: 100px;
   margin-bottom: 15px;
+  /* overflow-y: auto; */
 }
 .reply {
   display: flex;
@@ -115,8 +117,22 @@
   background-color: #615f5f;
   cursor: pointer;
 }
-.editor p {
-  height: 100px;
+.editor {
+  width: 52.4%;
+  overflow: auto;
+  height: 170px;
+  position: absolute;
+}
+.Text-Editor {
+  height: 110px;
+  /* overflow-y: auto; */
+}
+.ql-toolbar {
+  background: #f8f8f8;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 1; /* Ensures toolbar stays above text */
 }
 
 .chat-messages {
@@ -150,16 +166,17 @@
 .reply-span {
   padding-left: 40px;
 }
-.reply-span p{
+.reply-span p {
   margin: 0;
+  white-space: pre-line;
 }
-.reply-icon{
+.reply-icon {
   display: flex;
   justify-content: center;
   gap: 3px;
   text-align: center;
 }
-.reply-icon strong{
+.reply-icon strong {
   padding: 6px;
 }
 

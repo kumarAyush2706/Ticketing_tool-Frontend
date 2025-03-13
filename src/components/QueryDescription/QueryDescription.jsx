@@ -180,7 +180,7 @@
 
 // export default QueryDescription;
 
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import Header from "../Header/Header";
@@ -208,6 +208,37 @@ const QueryDescription = () => {
   // const createdAt = state?.queryData?.createdAt;
 
   // Fetch logged-in admin details
+
+  const toolbarOptions = [
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+    // ["undo", "redo"],
+    [{ font: ["Robot", 2, 3, 4, 5, 6] }],
+    ["bold", "italic", "underline", "strike", "blockquote"],
+    [
+      { list: "ordered" },
+      { list: "bullet" },
+      { indent: "-1" },
+      { indent: "+1" },
+    ],
+    ["link"],
+  ];
+
+  const formats = [
+    // "undo",
+    // "redo",
+    "header",
+    "font",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+  ];
+
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -322,13 +353,12 @@ const QueryDescription = () => {
                   <FaUser fontSize={20} />
                 </div>
                 <h3>{name}</h3>
-                
               </div>
               <p>
-                  {createdAt
-                    ? new Date(createdAt).toLocaleString()
-                    : "Date not available"}
-                </p>
+                {createdAt
+                  ? new Date(createdAt).toLocaleString()
+                  : "Date not available"}
+              </p>
             </div>
             <div className="chat-description">
               {description}
@@ -345,19 +375,24 @@ const QueryDescription = () => {
                     <div key={index} className="message admin">
                       <div className="message-header">
                         <div className="reply-icon">
-                        <FaUserTie fontSize={20} className="admin-icon" />
-                        <strong >{msg.adminName || name}:</strong>
+                          <FaUserTie fontSize={20} className="admin-icon" />
+                          <strong>{msg.adminName || name}:</strong>
                         </div>
                         <p className="timestamp">
-                        {msg.createdAt
-                          ? new Date(msg.createdAt).toLocaleString()
-                          : "Invalid date"}
-                      </p>
+                          {msg.createdAt
+                            ? new Date(msg.createdAt).toLocaleString()
+                            : "Invalid date"}
+                        </p>
                       </div>
                       {/* <span className="reply-span">
                         {msg.message}
                         </span> */}
-                      <div className="reply-span" dangerouslySetInnerHTML={{ __html: msg.message }} />
+                      <div
+                        className="reply-span"
+                        dangerouslySetInnerHTML={{
+                          __html: msg.message.replace(/\n/g, "<br>"),
+                        }}
+                      />
                     </div>
                   ))}
                   {/* {userReplies.map((msg, index) => (
@@ -386,8 +421,15 @@ const QueryDescription = () => {
               <h3>Reply</h3>
               <button onClick={handleSend}>Send</button>
             </div>
-            <div className="editor">
-              <ReactQuill value={content} onChange={setContent} theme="snow" />
+            <div className="">
+              <ReactQuill
+                value={content}
+                onChange={setContent}
+                modules={{ toolbar: toolbarOptions }}
+                theme="snow"
+                formats={formats}
+                className="Text-Editor"
+              />
             </div>
           </div>
         </div>
